@@ -21,7 +21,32 @@
 	a {
 	    text-decoration: none;
 	}
-	</style>
+	#video-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .cast-button {
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Include the Cast SDK -->
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <script type="text/javascript">
+        // Initialize the Cast SDK
+        window['__onGCastApiAvailable'] = function(isAvailable) {
+            if (isAvailable) {
+                initializeCastApi();
+            }
+        };
+
+        function initializeCastApi() {
+            cast.framework.CastContext.getInstance().setOptions({
+                receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+                autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+            });
+        }
+    </script>
 </head>
 <body>
 	<h1 style="text-align: center; color: white;">Astro Cricket Hindi HD</h1>
