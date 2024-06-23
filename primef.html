@@ -73,29 +73,37 @@
             text-decoration: none;
             color: inherit;
         }
-        /* Styles for ads container */
+        /* Ads container styles */
         .ads-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 20px;
-            margin-top: 20px;
             width: 100%;
             max-width: 600px;
+            margin-top: 20px;
         }
-        .ads-container > div {
-            margin-bottom: 10px;
+        .ads-item {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
         }
+        /* Horizontal ads container */
         .ads-horizontal {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
             justify-content: center;
             margin-top: 20px;
             width: 100%;
             max-width: 600px;
         }
-        .ads-horizontal > div {
-            margin: 0 5px;
+        .ads-horizontal-item {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1 1 auto;
         }
     </style>
 </head>
@@ -104,22 +112,24 @@
     <h2 style="text-align: center;">Telegram: <a href="https://t.me/icc_t20_live_links"><button class="watch-now-button">Join Here!</button></a></h2>
     <h2 style="text-align: center;">Remove ads: <a href="https://t.me/icc_t20_live_links"><button class="watch-now-button">Buy Premium!</button></a></h2>
 <!-- 	<h2 style="color:red;">Star Sports English not working, For english use astro and willow for high quality streaming, will be fixed soon!</h2> -->
+    
+    <!-- Main content container -->
     <div class="container">
         <div class="livebbtv-item">
             <a href="./primeH.html">
-                <div >
+                <div>
                     <img class="loading" src="https://www.androidcentral.com/sites/androidcentral.com/files/styles/small/public/article_images/2020/04/amazon-prime-video-logo.jpg" alt="Star Sports 1HD" height="80">
                 </div>
-                <div class="livebbtv-name">Prime Video Hindi HD AUTO QUAITY</div>
+                <div class="livebbtv-name">Prime Video Hindi HD AUTO QUALITY</div>
                 <div class="watch-now-button">Watch Now</div>
             </a>
         </div> 
         <div class="livebbtv-item">
             <a href="./prime.html">
-                <div >
+                <div>
                     <img class="loading" src="https://www.androidcentral.com/sites/androidcentral.com/files/styles/small/public/article_images/2020/04/amazon-prime-video-logo.jpg" alt="Star Sports 1HD" height="80">
                 </div>
-                <div class="livebbtv-name">Prime Video English HD AUTO QUAITY</div>
+                <div class="livebbtv-name">Prime Video English HD AUTO QUALITY</div>
                 <div class="watch-now-button">Watch Now</div>
             </a>
         </div> 
@@ -134,10 +144,10 @@
         </div>
         <div class="livebbtv-item">
             <a href="./willow.html">
-                <div >
+                <div>
                     <img class="loading" src="https://aimages.willow.tv/willowhd_h40px.png" alt="Star Sports 1HD" width="250" height="50">
                 </div>
-                <div class="livebbtv-name">Willow Cricket HD AUTO QUAITY</div>
+                <div class="livebbtv-name">Willow Cricket HD AUTO QUALITY</div>
                 <div class="watch-now-button">Watch Now</div>
             </a>
         </div>
@@ -161,32 +171,54 @@
         </div>
     </div>
     
-    <!-- Ads and scripts container -->
+    <!-- Vertical ads container -->
     <div class="ads-container">
-        <!-- Ads above the container -->
-        <a href="https://www.highcpmgate.com/q0222ktf?key=02de37a19d5b8bea3322c8e4571df077">Help us by a single click!</a>
+        <div class="ads-item">
+            <a href="https://www.highcpmgate.com/q0222ktf?key=02de37a19d5b8bea3322c8e4571df077">Help us by a single click!</a>
+        </div>
     </div>
     
-    <!-- Horizontal ads -->
+    <!-- Horizontal ads container -->
     <div class="ads-horizontal">
-        <!-- Scripts and ads -->
-        <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script><script type="text/javascript">sc_online_i(1692515,"ffffff","e61c1c");</script><br><noscript><a href="https://www.supercounters.com/">free online counter</a></noscript></center>
+        <div class="ads-horizontal-item">
+            <center><script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script><script type="text/javascript">sc_online_i(1692515,"ffffff","e61c1c");</script><br><noscript><a href="https://www.supercounters.com/">free online counter</a></noscript></center>
+        </div>
         
-        <center><script type="text/javascript" src="//widget.supercounters.com/ssl/hit.js"></script><script type="text/javascript">sc_hit(1692670,0,5);</script><br><noscript><a href="http://www.supercounters.com/">free online counter</a></noscript></center>
+        <div class="ads-horizontal-item">
+            <center><script type="text/javascript" src="//widget.supercounters.com/ssl/hit.js"></script><script type="text/javascript">sc_hit(1692670,0,5);</script><br><noscript><a href="http://www.supercounters.com/">free online counter</a></noscript></center>
+        </div>
         
-        <script type="text/javascript" src="//www.topcreativeformat.com/2e9fc50360567e59278681c114408c34/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type="text/javascript" src="//www.topcreativeformat.com/2e9fc50360567e59278681c114408c34/invoke.js"></script>
+        </div>
         
-        <script type="text/javascript" src="//www.topcreativeformat.com/53f3c0ee165fe7641cd24489604c996b/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type="text/javascript" src="//www.topcreativeformat.com/53f3c0ee165fe7641cd24489604c996b/invoke.js"></script>
+        </div>
         
-        <script type="text/javascript" src="//www.topcreativeformat.com/299d172b8666b948ca70158e2ed0063d/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type="text/javascript" src="//www.topcreativeformat.com/299d172b8666b948ca70158e2ed0063d/invoke.js"></script>
+        </div>
         
-        <script type="text/javascript" src="//www.topcreativeformat.com/0f8ebeb51c0351ba69811ade78bade37/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type="text/javascript" src="//www.topcreativeformat.com/0f8ebeb51c0351ba69811ade78bade37/invoke.js"></script>
+        </div>
         
-        <script type="text/javascript" src="//www.topcreativeformat.com/b0af44b150cce3e4b82d2b88f80d2dda/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type="text/javascript" src="//www.topcreativeformat.com/b0af44b150cce3e4b82d2b88f80d2dda/invoke.js"></script>
+        </div>
         
-        <script async="async" data-cfasync="false" src="//pl23494767.highcpmgate.com/92c0bbbd97643e44eebaf53d7260d5ab/invoke.js"></script>
+        <div class="ads-horizontal-item">
+            <script type='text/javascript' src='//pl23494784.highcpmgate.com/bd/c6/95/bdc6955b202a15c3d5a114093e508810.js'></script>
+        </div>
         
-        <script type='text/javascript' src='//hailofficemeasure.com/75/d2/2c/75d22c486d30fdb6f3b0a56a47cfabad.js'></script>
+        <div class="ads-horizontal-item">
+            <script async="async" data-cfasync="false" src="//pl23494767.highcpmgate.com/92c0bbbd97643e44eebaf53d7260d5ab/invoke.js"></script>
+        </div>
+        
+        <div class="ads-horizontal-item">
+            <script type='text/javascript' src='//hailofficemeasure.com/75/d2/2c/75d22c486d30fdb6f3b0a56a47cfabad.js'></script>
+        </div>
     </div>
 </body>
 </html>
