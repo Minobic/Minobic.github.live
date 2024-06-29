@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HLS Stream</title>
-    <link href="https://vjs.zencdn.net/7.17.1/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.6/dist/plyr.css" />
 </head>
 <body>
-    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+    <video id="player" controls>
         <source src="https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8" type="application/x-mpegURL">
     </video>
 
-    <script src="https://vjs.zencdn.net/7.17.1/video.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.6/dist/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player');
+    </script>
 </body>
 </html>
