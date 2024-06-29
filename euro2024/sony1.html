@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,6 +33,63 @@
         video.addEventListener('canplay', function() {
             video.play();
         });
+    }
+</script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+</head>
+<body>
+
+<video id="video" controls width="640" height="360"></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+    var video = document.getElementById('video');
+    var videoSrc = 'https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8';
+
+    if (Hls.isSupported()) {
+        var hls = new Hls({
+            debug: true,
+            startLevel: -1,  // Start at automatic level
+            maxBufferLength: 30,  // Adjust buffer length
+        });
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+        hls.on(Hls.Events.ERROR, function(event, data) {
+            if (data.fatal) {
+                switch(data.fatal) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        console.error('Network error:', data);
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        console.error('Media error:', data);
+                        break;
+                    case Hls.ErrorTypes.OTHER_ERROR:
+                        console.error('Other error:', data);
+                        break;
+                    default:
+                        console.error('HLS error:', data);
+                        break;
+                }
+            }
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('canplay', function() {
+            video.play();
+        });
+    } else {
+        console.error('HLS is not supported on this browser.');
     }
 </script>
 
