@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaka Player HLS Stream</title>
-    <script src="https://sony247channels.akamaized.net/hls/live/2011747-b/TEN1HD/master.m3u8?hdnea=st=1719681618~exp=1719681918~acl=*~id=aafdbfd3-ffc3-420a-95f0-450e95f81650~hmac=cbe3da8350239047284c4cf94a24fa79d5a4ce6c390366e324b123d22acde789&originpath=/linear/hls/pb/event/yeYP86THQ4yl7US8Zx5eug/stream/777e29a0-1cdd-4970-a513-9a802a0fd5d7:TPE2/master.m3u8"></script>
+    <title>HLS Stream</title>
+    <link href="https://vjs.zencdn.net/7.17.1/video-js.css" rel="stylesheet">
 </head>
 <body>
-    <video id="video" width="640" height="360" controls></video>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const video = document.getElementById('video');
-            const player = new shaka.Player(video);
-            player.load('https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8').catch(console.error);
-        });
-    </script>
+    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+        <source src="https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8" type="application/x-mpegURL">
+    </video>
+
+    <script src="https://vjs.zencdn.net/7.17.1/video.min.js"></script>
 </body>
 </html>
