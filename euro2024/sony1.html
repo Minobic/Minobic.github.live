@@ -3,38 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Streaming</title>
+    <title>HLS Stream</title>
+    <link href="https://vjs.zencdn.net/7.17.1/video-js.css" rel="stylesheet">
 </head>
 <body>
+    <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360">
+        <source src="https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8" type="application/x-mpegURL">
+    </video>
 
-<video id="video" controls width="640" height="360"></video>
-
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-    var video = document.getElementById('video');
-    var videoSrc = 'https://dai.google.com/ssai/event/yeYP86THQ4yl7US8Zx5eug/master.m3u8';
-
-    if (Hls.isSupported()) {
-        var hls = new Hls({
-            debug: true,
-            startLevel: -1,  // Start at automatic level
-            maxBufferLength: 30,  // Adjust buffer length
-        });
-        hls.loadSource(videoSrc);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
-        });
-        hls.on(Hls.Events.ERROR, function(event, data) {
-            console.error('HLS error:', data);  // Log errors to console for troubleshooting
-        });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = videoSrc;
-        video.addEventListener('canplay', function() {
-            video.play();
-        });
-    }
-</script>
-
+    <script src="https://vjs.zencdn.net/7.17.1/video.min.js"></script>
 </body>
 </html>
