@@ -1,19 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-        <title>Chromecast</title>
-        <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <meta charset="utf-8">
+  <title>videojs-hls-quality-selector Demo</title>
+  <link href="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/dist/videojs-hls-quality-selector.css" rel="stylesheet">
+  <link href="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/videojs/video-js.css" rel="stylesheet">
 </head>
 <body>
+  <video id="videojs-hls-quality-selector-player" class="video-js vjs-default-skin" width="640" height="360" poster="https://cdn.vectahosting.eu/demo/YzWTYSjOxAY/default.jpg " controls>
+    <source src="https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8" type="application/x-mpegURL"></video>
 
-<video id="myVideo" width="320" height="240" controls src="https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8">
-  Your browser does not support the video tag.
-</video>
-<p>Click to chromecast video</p>
-        <form>
-                <button type="button" id="castme">Click To Cast</button>
-        </form>
-        <script type="text/javascript" src="script.js"></script>
-</body>
-</html>
+  <script src="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/videojs/video.js"></script>
+  <script src="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/videojs-contrib-hls.js"></script>
+  <script src="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/videojs-contrib-quality-levels.js"></script>
+  <script src="https://cdn.vectahosting.eu/videojs-hls-quality-selector%400.0.8/dist/videojs-hls-quality-selector.js"></script>
+  <script>
+    (function(window, videojs) {
+      var player = window.player = videojs('videojs-hls-quality-selector-player');
+      player.hlsQualitySelector();
+    }(window, window.videojs));
+  </script>
+  </body>
+  </html>
