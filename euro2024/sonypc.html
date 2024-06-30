@@ -27,27 +27,26 @@
 	<h1 style="text-align: center; color: white;">Sony Sports 1 HD</h1>
 		<h2 style="text-align: center; color: white;">Telegram: <a href="https://t.me/icc_t20_live_links"><button>Join Here!</button></a></h2>
 	<h2 style="text-align: center; color: white;">Remove ads: <a href="https://t.me/icc_t20_live_links"><button class="watch-now-button ">Buy Premium!</button></a></h2>
-	<div>
-<video id="video" controls autoplay playsinline style="width: 100%; max-width: 600px;" src="https://dai.google.com/ssai/event/S-q8I27RRzmkb-OIdoaiAw/master.m3u8"></video>
+	<video id="video" controls autoplay playsinline style="width: 100%; max-width: 600px;"></video>
 
-	</div>
-            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
     if (Hls.isSupported()) {
         var video = document.getElementById('video');
         var hls = new Hls();
-        hls.loadSource('https://dai.google.com/ssai/event/S-q8I27RRzmkb-OIdoaiAw/master.m3u8');
+        hls.loadSource('https://cors-anywhere.herokuapp.com/https://dai.google.com/ssai/event/S-q8I27RRzmkb-OIdoaiAw/master.m3u8');
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, function() {
             video.play();
         });
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = 'https://dai.google.com/ssai/event/S-q8I27RRzmkb-OIdoaiAw/master.m3u8';
+        video.src = 'https://cors-anywhere.herokuapp.com/https://dai.google.com/ssai/event/S-q8I27RRzmkb-OIdoaiAw/master.m3u8';
         video.addEventListener('loadedmetadata', function() {
             video.play();
         });
     }
 </script>
+
 
 	<hr>
 	<br>
