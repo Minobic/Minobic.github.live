@@ -1,111 +1,67 @@
-var session = null;
+document.addEventListener('DOMContentLoaded', () => {
+	const source = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+	const video = document.querySelector('video');
 
-$( document ).ready(function(){
-        var loadCastInterval = setInterval(function(){
-                if (chrome.cast.isAvailable) {
-                        console.log('Cast has loaded.');
-                        clearInterval(loadCastInterval);
-                        initializeCastApi();
-                } else {
-                        console.log('Unavailable');
-                }
-        }, 1000);
+	const defaultOptions = {};
+
+	if (!Hls.isSupported()) {
+		video.src = source;
+		var player = new Plyr(video, defaultOptions);
+	} else {
+		// For more Hls.js options, see https://github.com/dailymotion/hls.js
+		const hls = new Hls();
+		hls.loadSource(source);
+
+		// From the m3u8 playlist, hls parses the manifest and returns
+                // all available video qualities. This is important, in this approach,
+    	        // we will have one source on the Plyr player.
+    	       hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+
+	      	     // Transform available levels into an array of integers (height values).
+	      	    const availableQualities = hls.levels.map((l) => l.height)
+	      	availableQualities.unshift(0) //prepend 0 to quality array
+
+	      	    // Add new qualities to option
+		    defaultOptions.quality = {
+		    	default: 0, //Default - AUTO
+		        options: availableQualities,
+		        forced: true,        
+		        onChange: (e) => updateQuality(e),
+		    }
+		    // Add Auto Label 
+		    defaultOptions.i18n = {
+		    	qualityLabel: {
+		    		0: 'Auto',
+		    	},
+		    }
+
+		    hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
+	          var span = document.querySelector(".plyr__menu__container [data-plyr='quality'][value='0'] span")
+	          if (hls.autoLevelEnabled) {
+	            span.innerHTML = `AUTO (${hls.levels[data.level].height}p)`
+	          } else {
+	            span.innerHTML = `AUTO`
+	          }
+	        })
+    
+             // Initialize new Plyr player with quality options
+		     var player = new Plyr(video, defaultOptions);
+         });	
+
+	hls.attachMedia(video);
+    	window.hls = hls;		 
+    }
+
+    function updateQuality(newQuality) {
+      if (newQuality === 0) {
+        window.hls.currentLevel = -1; //Enable AUTO quality if option.value = 0
+      } else {
+        window.hls.levels.forEach((level, levelIndex) => {
+          if (level.height === newQuality) {
+            console.log("Found quality match with " + newQuality);
+            window.hls.currentLevel = levelIndex;
+          }
+        });
+      }
+    }
 });
-
-function initializeCastApi() {
-        var applicationID = chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID;
-        var sessionRequest = new chrome.cast.SessionRequest(applicationID);
-        var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
-                sessionListener,
-                receiverListener);
-        chrome.cast.initialize(apiConfig, onInitSuccess, onInitError);
-};
-
-function sessionListener(e) {
-        session = e;
-        console.log('New session');
-        if (session.media.length != 0) {
-                console.log('Found ' + session.media.length + ' sessions.');
-        }
-}
- 
-function receiverListener(e) {
-        if( e === 'available' ) {
-                console.log("Chromecast was found on the network.");
-        }
-        else {
-                console.log("There are no Chromecasts available.");
-        }
-}
-
-function onInitSuccess() {
-        console.log("Initialization succeeded");
-}
-
-function onInitError() {
-        console.log("Initialization failed");
-}
-
-$('#castme').click(function(){
-        launchApp();
-});
-
-function launchApp() {
-        console.log("Launching the Chromecast App...");
-        chrome.cast.requestSession(onRequestSessionSuccess, onLaunchError);
-}
-
-function onRequestSessionSuccess(e) {
-        console.log("Successfully created session: " + e.sessionId);
-        session = e;
-}
-
-function onLaunchError() {
-        console.log("Error connecting to the Chromecast.");
-}
-
-function onRequestSessionSuccess(e) {
-        console.log("Successfully created session: " + e.sessionId);
-        session = e;
-        loadMedia();
-}
-
-function loadMedia() {
-        if (!session) {
-                console.log("No session.");
-                return;
-        }
-        
-        var videoSrc = document.getElementById("myVideo").src;
-        var mediaInfo = new chrome.cast.media.MediaInfo(videoSrc);
-        mediaInfo.contentType = 'video/mp4';
-  
-        var request = new chrome.cast.media.LoadRequest(mediaInfo);
-        request.autoplay = true;
-
-        session.loadMedia(request, onLoadSuccess, onLoadError);
-}
-
-function onLoadSuccess() {
-        console.log('Successfully loaded video.');
-}
-
-function onLoadError() {
-        console.log('Failed to load video.');
-}
-
-$('#stop').click(function(){
-        stopApp();
-});
-
-function stopApp() {
-        session.stop(onStopAppSuccess, onStopAppError);
-}
-
-function onStopAppSuccess() {
-        console.log('Successfully stopped app.');
-}
-
-function onStopAppError() {
-        console.log('Error stopping app.');
-}
