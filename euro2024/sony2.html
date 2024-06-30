@@ -45,21 +45,24 @@
             }
         });
 
-        if (Hls.isSupported()) {
+        document.addEventListener('DOMContentLoaded', function() {
             var video = document.getElementById('video');
-            var hls = new Hls();
             var streamURL = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
-            hls.loadSource('https://cors-anywhere.herokuapp.com/' + streamURL);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'https://cors-anywhere.herokuapp.com/https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
+
+            if (Hls.isSupported()) {
+                var hls = new Hls();
+                hls.loadSource('https://cors-anywhere.herokuapp.com/' + streamURL);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = 'https://cors-anywhere.herokuapp.com/' + streamURL;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
+        });
     </script>
 
 </body>
