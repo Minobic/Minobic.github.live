@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const source = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
     const video = document.querySelector('video');
   
     const defaultOptions = {};
