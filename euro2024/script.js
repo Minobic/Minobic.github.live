@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const source = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
     const video = document.querySelector('video');
   
     const defaultOptions = {};
