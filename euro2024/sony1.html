@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sony Sports 1</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel='stylesheet' href='https://unpkg.com/plyr@3/dist/plyr.css'><link rel="stylesheet" href="./style.css">
 	<style>
 		button {
             display: inline-block;
@@ -28,10 +30,15 @@
 	<h1 style="text-align: center; color: white;">Sony Sports 1 HD</h1>
 		<h2 style="text-align: center; color: white;">Telegram: <a href="https://t.me/icc_t20_live_links"><button>Join Here!</button></a></h2>
 	<h2 style="text-align: center; color: white;">Remove ads: <a href="https://t.me/icc_t20_live_links"><button class="watch-now-button ">Buy Premium!</button></a></h2>
-	<div>
-	<video id="video" controls style="width: 100%; max-width: 600px;" poster="https://img.uefa.com/imgml/uefacom/euro2024/rebrand/og-image.png" src="https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8"></video>
-
+	<div class="container">
+		<video controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>
 	</div>
+	<!-- Plyr resources and browser polyfills are specified in the pen settings -->
+	<!-- Hls.js 0.9.x and 0.10.x both have critical bugs affecting this demo. Using fixed git hash to when it was working (0.10.0 pre-release), until https://github.com/video-dev/hls.js/issues/1790 has been resolved -->
+	<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+	<!-- partial -->
+	  <script src='https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+	<script src='https://unpkg.com/plyr@3'></script><script  src="./script1.js"></script>
 	<hr>
 	<br>
 <button class="watch-now-button" style="align-items: center;"><a href="https://www.highcpmgate.com/q0222ktf?key=02de37a19d5b8bea3322c8e4571df077">Help us by a single click!</a></button>
