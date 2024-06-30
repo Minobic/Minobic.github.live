@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sony Sports 1</title>
-	<script src="https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
-	<script src="https://unpkg.com/plyr@3"></script>
 	<style>
 		button {
             display: inline-block;
@@ -46,6 +44,8 @@ video {
 <!-- Plyr resources and browser polyfills are specified in the pen settings -->
 <!-- Hls.js 0.9.x and 0.10.x both have critical bugs affecting this demo. Using fixed git hash to when it was working (0.10.0 pre-release), until https://github.com/video-dev/hls.js/issues/1790 has been resolved -->
 <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+<script src="https://unpkg.com/plyr@3"></script>
 <script type="type/babel">
 	document.addEventListener('DOMContentLoaded', () => {
 	const source = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
