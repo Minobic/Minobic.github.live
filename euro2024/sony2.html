@@ -37,17 +37,34 @@
     </button>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        if(Hls.isSupported()) {
+        (function() {
+            var cors_api_host = 'cors-anywhere.herokuapp.com';
+            var cors_api_url = 'https://' + cors_api_host + '/';
+            var slice = [].slice;
+            var origin = window.location.protocol + '//' + window.location.host;
+            var open = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function() {
+                var args = slice.call(arguments);
+                var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+                if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+                    targetOrigin[1] !== cors_api_host) {
+                    args[1] = cors_api_url + args[1];
+                }
+                return open.apply(this, args);
+            };
+        })();
+
+        if (Hls.isSupported()) {
             var video = document.getElementById('video');
             var hls = new Hls();
-            hls.loadSource('https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8');
+            var streamURL = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
+            hls.loadSource('https://cors-anywhere.herokuapp.com/' + streamURL);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, function() {
                 video.play();
             });
-        }
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = 'https://cors-anywhere.herokuapp.com/https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.m3u8';
             video.addEventListener('loadedmetadata', function() {
                 video.play();
             });
