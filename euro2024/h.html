@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Controls</title>
+    <style>
+        /* Container for video and controls */
+        .video-container {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        /* Video element */
+        #video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Custom controls */
+        .controls {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .controls button, .controls select {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            margin: 0 5px;
+        }
+
+        .controls .progress-bar {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .controls .progress-bar input {
+            width: 100%;
+        }
+
+        .controls .volume-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .controls .volume-controls button {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="video" src="https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.mp4"></video>
+        <div class="controls">
+            <button id="playPause">Play</button>
+            <button id="muteUnmute">Mute</button>
+            <div class="volume-controls">
+                <button id="volumeDown">-</button>
+                <button id="volumeUp">+</button>
+            </div>
+            <input type="range" id="progressBar" class="progress-bar" min="0" max="100" value="0">
+            <button id="fullScreen">Fullscreen</button>
+            <button id="castButton">Cast</button>
+            <select id="qualitySelector">
+                <option value="auto">Auto</option>
+                <option value="360p">360p</option>
+                <option value="480p">480p</option>
+                <option value="720p">720p</option>
+                <option value="1080p">1080p</option>
+            </select>
+            <span id="timeDisplay">0:00 / 0:00</span>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/chrome-cast/v1/cc.js"></script>
+    <script>
+        const video = document.getElementById('video');
+        const playPauseButton = document.getElementById('playPause');
+        const muteUnmuteButton = document.getElementById('muteUnmute');
+        const progressBar = document.getElementById('progressBar');
+        const fullScreenButton = document.getElementById('fullScreen');
+        const volumeDownButton = document.getElementById('volumeDown');
+        const volumeUpButton = document.getElementById('volumeUp');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const castButton = document.getElementById('castButton');
+        const qualitySelector = document.getElementById('qualitySelector');
+
+        // Play/Pause Button
+        playPauseButton.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseButton.textContent = 'Pause';
+            } else {
+                video.pause();
+                playPauseButton.textContent = 'Play';
+            }
+        });
+
+        // Mute/Unmute Button
+        muteUnmuteButton.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteUnmuteButton.textContent = video.muted ? 'Unmute' : 'Mute';
+        });
+
+        // Volume Controls
+        volumeDownButton.addEventListener('click', () => {
+            video.volume = Math.max(0, video.volume - 0.1);
+        });
+
+        volumeUpButton.addEventListener('click', () => {
+            video.volume = Math.min(1, video.volume + 0.1);
+        });
+
+        // Progress Bar
+        video.addEventListener('timeupdate', () => {
+            const value = (video.currentTime / video.duration) * 100;
+            progressBar.value = value;
+
+            const minutes = Math.floor(video.currentTime / 60);
+            const seconds = Math.floor(video.currentTime % 60).toString().padStart(2, '0');
+            const totalMinutes = Math.floor(video.duration / 60);
+            const totalSeconds = Math.floor(video.duration % 60).toString().padStart(2, '0');
+            timeDisplay.textContent = `${minutes}:${seconds} / ${totalMinutes}:${totalSeconds}`;
+        });
+
+        progressBar.addEventListener('input', () => {
+            const value = progressBar.value;
+            video.currentTime = (value / 100) * video.duration;
+        });
+
+        // Fullscreen Button
+        fullScreenButton.addEventListener('click', () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        });
+
+        // Cast Button
+        castButton.addEventListener('click', () => {
+            if (window.cast && cast.framework) {
+                const castContext = cast.framework.CastContext.getInstance();
+                castContext.requestSession().catch(error => console.error('Failed to start casting:', error));
+            } else {
+                alert('Cast is not supported.');
+            }
+        });
+
+        // Quality Selector
+        qualitySelector.addEventListener('change', (event) => {
+            const selectedQuality = event.target.value;
+            let url;
+
+            switch (selectedQuality) {
+                case '360p':
+                    url = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master_360p.m3u8';
+                    break;
+                case '480p':
+                    url = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master_480p.m3u8';
+                    break;
+                case '720p':
+                    url = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master_720p.m3u8';
+                    break;
+                case '1080p':
+                    url = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master_1080p.m3u8';
+                    break;
+                default:
+                    url = 'https://dai.google.com/ssai/event/Syu8F41-R1y_JmQ7x0oNxQ/master.mp4';
+                    break;
+            }
+
+            video.src = url;
+            video.play();
+        });
+    </script>
+</body>
+</html>
