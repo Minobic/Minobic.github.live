@@ -47,7 +47,9 @@ video {
 	<!-- Hls.js 0.9.x and 0.10.x both have critical bugs affecting this demo. Using fixed git hash to when it was working (0.10.0 pre-release), until https://github.com/video-dev/hls.js/issues/1790 has been resolved -->
 	<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
 	<!-- partial -->
-	 <script>
+	  <script src='https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
+	<script src='https://unpkg.com/plyr@3'></script>
+	<script>
 		document.addEventListener('DOMContentLoaded', () => {
   const source = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
   const video = document.querySelector('video');
@@ -116,8 +118,6 @@ video {
   }
 });
 	 </script>
-	  <script src='https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL'></script>
-	<script src='https://unpkg.com/plyr@3'></script><script  src="./script.js"></script>
 	<hr>
 	<br>
 <button class="watch-now-button" style="align-items: center;"><a href="https://www.highcpmgate.com/q0222ktf?key=02de37a19d5b8bea3322c8e4571df077">Help us by a single click!</a></button>
